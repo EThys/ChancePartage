@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        $users=User::all();
+        $users=User::with(['reservations', 'winners'])->get();
         return new AuthCollection($users);
     }
 
