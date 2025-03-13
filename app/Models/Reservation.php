@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,5 +24,10 @@ class Reservation extends Model
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class);
     }
 }
