@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('current_city')->nullable();
             $table->string('profile_photo')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('isAdmin')->default(0);
+            $table->boolean('isAdmin')->default(0);
             $table->string('password');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
