@@ -21,14 +21,20 @@ class ReservationController extends Controller
         return new reservationCollection(resource: $reservations);
     }
 
-    public function createReservation(Request $request, $eventId)
-    {
+        public function createReservation(Request $request, $eventId){
         $event = Event::find($eventId);
         if (!$event) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Événement non trouvé'
             ], 404);
+        }
+
+        if ($event->status === 'finished' || $event->status === 'closed') {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Les réservations ne sont pas autorisées pour cet événement car il est terminé ou fermé.'
+            ], 400);
         }
 
         $validator = Validator::make($request->all(), [
@@ -78,7 +84,7 @@ class ReservationController extends Controller
             'message' => 'Réservation et ticket créés avec succès',
             'reservation' => $reservation,
             'ticket' => $ticket,
-            'user'=>$user
+            'user' => $user
         ], 201);
     }
 
