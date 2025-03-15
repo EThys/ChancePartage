@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\WinnerController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -21,11 +22,16 @@ Route::get('/users/all', [AuthController::class, 'index'])->middleware('auth:san
 Route::get('/user/{id}', [AuthController::class, 'show'])->middleware('auth:sanctum');
 
 // Routes pour les événements
-Route::get('/events/all', [EventController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/events/all', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'createEvent'])->middleware('auth:sanctum');
 Route::put('/events/{eventId}', [EventController::class, 'updateEvent'])->middleware('auth:sanctum');
 Route::delete('/events/{eventId}', [EventController::class, 'deleteEvent'])->middleware('auth:sanctum');
-Route::get('/events/{eventId}', [EventController::class, 'showEvent'])->middleware('auth:sanctum');
+Route::get('/events/{eventId}', [EventController::class, 'showEvent']);
+
+// Routes pour les winners
+Route::get('/winners/all', [WinnerController::class, 'index']);
+Route::post('/winners/{eventId}/tirage', [WinnerController::class, 'tirage']);
+Route::get('/winners/{eventId}', [WinnerController::class, 'getWinnersByEvent']);
 
 // Routes pour les réservations
 Route::get('/reservations/all', [ReservationController::class, 'index'])->middleware('auth:sanctum');
