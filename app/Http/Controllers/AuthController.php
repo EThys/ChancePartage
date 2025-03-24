@@ -41,7 +41,7 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Vérification du mot de passe
+
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => 400,
@@ -49,7 +49,7 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Création du token
+
         $token = $user->createToken("API TOKEN")->plainTextToken;
 
         return response()->json([
@@ -138,7 +138,6 @@ class AuthController extends Controller
             'profile_photo' => $profilePhotoPath
         ]);
 
-        // Création du token
         $token = $user->createToken("API TOKEN")->plainTextToken;
 
         return response()->json([

@@ -45,8 +45,6 @@ class WinnerController extends Controller
                 'message' => 'Événement non trouvé'
             ], 404);
         }
-
-        // Vérifier si l'événement est déjà terminé ou fermé
         if ($event->status === 'closed' || $event->status === 'finished') {
             return response()->json([
                 'status' => 400,
@@ -54,7 +52,6 @@ class WinnerController extends Controller
             ], 400);
         }
 
-        // Vérifier si un tirage a déjà eu lieu ce mois-ci pour cet événement
         $currentMonth = now()->format('Y-m');
         $existingTirage = Winner::where('event_id', $eventId)
             ->whereRaw('strftime("%Y-%m", winning_date) = ?', [$currentMonth])
@@ -74,7 +71,7 @@ class WinnerController extends Controller
             }])
             ->get();
 
-        // Vérifier s'il y a suffisamment de participants pour un tirage
+
         if ($reservations->count() < 200) {
             return response()->json([
                 'status' => 400,
@@ -86,13 +83,12 @@ class WinnerController extends Controller
         // Initialiser un tableau pour stocker les gagnants
         $winners = [];
 
-        // Définir les quotas par ville (80% pour Kinshasa, 20% pour les autres villes)
         $cityQuotas = [
-            'Kinshasa' => 80, // 80% des gagnants doivent être de Kinshasa
-            'Autres' => 20,   // 20% des gagnants peuvent être d'autres villes
+            'Kinshasa' => 80,
+            'Autres' => 20,
         ];
 
-        // Initialiser un tableau pour suivre les quotas par ville
+
         $cityCounts = [
             'Kinshasa' => 0,
             'Autres' => 0,
@@ -114,7 +110,7 @@ class WinnerController extends Controller
             $winners[] = $reservation->user;
             $cityCounts[$quotaCategory]++;
 
-            // Arrêter si nous avons atteint 100 gagnants
+
             if (count($winners) >= 100) {
                 break;
             }
@@ -130,18 +126,13 @@ class WinnerController extends Controller
             }
         }
 
-        // Enregistrer les gagnants dans la table `winners` et mettre à jour leurs statistiques
         foreach ($shuffledReservations as $reservation) {
             if (in_array($reservation->user, $winners)) {
-                // L'utilisateur a gagné : incrémenter successful_participations
                 $reservation->user->increment('successful_participations');
             } else {
-                // L'utilisateur a perdu : incrémenter failed_attempts
                 $reservation->user->increment('failed_attempts');
             }
         }
-
-        // Enregistrer les gagnants dans la table `winners`
         foreach ($winners as $winner) {
             Winner::create([
                 'user_id' => $winner->id,
@@ -151,7 +142,7 @@ class WinnerController extends Controller
             ]);
         }
 
-        // Mettre à jour le statut de l'événement à "finished"
+
         $event->status = 'finished';
         $event->save();
 
@@ -159,7 +150,7 @@ class WinnerController extends Controller
             'status' => 200,
             'message' => 'Tirage de la loterie terminé',
             'winners' => $winners,
-            'city_counts' => $cityCounts // Pour vérifier la répartition des gagnants
+            'city_counts' => $cityCounts
         ], 200);
     }
 
