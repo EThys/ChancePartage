@@ -50,17 +50,17 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[OP.GG](https://op.gg)**
 
 
-## Routes pour les API
-**📌Pour l'authentification**
+- ## Routes pour les API
+- **📌Pour l'authentification**
 
-GET:	/api/users/all	Récupérer tous les utilisateurs
-POST:	/api/register	Inscription d'un utilisateur
-POST:	/api/login	Connexion d'un utilisateur
-GET:	/api/user/{id}	Récupérer un utilisateur par son ID
-POST:	/api/logout	Déconnexion d'un utilisateur
+- GET:	/api/users/all	Récupérer tous les utilisateurs
+- POST:	/api/register	Inscription d'un utilisateur
+- POST:	/api/login	Connexion d'un utilisateur
+- GET:	/api/user/{id}	Récupérer un utilisateur par son ID
+- POST:	/api/logout	Déconnexion d'un utilisateur
 
-**content json**
-**- api/register**
+- **content json**
+- **api/register**
 {
   "last_name": "Muzola",
   "first_name": "Ethberg",
@@ -74,16 +74,16 @@ POST:	/api/logout	Déconnexion d'un utilisateur
   "current_city": "Kinshasa"
 }
 
-**- api/login**
+- **api/login**
 {
   "identifiant": "ethbergmuzola500@gmail.com", L'utilisateur peut se connecter avec son email ou son numéro de téléphone.
   "password": "password123"
 }
 
-**📌Pour les events**
+- **📌Pour les events**
 
-GET:	/api/events/all	Récupérer tous les events
-POST:	/api/events	Création d'un event
+- GET:	/api/events/all	Récupérer tous les events
+- POST:	/api/events	Création d'un event
 {
   "name": "Concert",
   "description": "Un concert incroyable",
@@ -91,7 +91,7 @@ POST:	/api/events	Création d'un event
   "max_participants": 1000,
   "status": "open"
 }
-PUT:	/api/events/{id}	Modification d'un event
+- PUT:	/api/events/{id}	Modification d'un event
 {
   "name": "Concert Majeur",
   "description": "Un concert encore plus incroyable",
@@ -99,25 +99,25 @@ PUT:	/api/events/{id}	Modification d'un event
   "max_participants": 1500,
   "status": "closed"
 }
-DELETE:	/api/events/{id}	Suppression d'un event
-GET:	/api/events/{id}	Récupérer un event en particulier
+- DELETE:	/api/events/{id}	Suppression d'un event
+- GET:	/api/events/{id}	Récupérer un event en particulier
 
-**📌Pour les reservations**
+- **📌Pour les reservations**
 
-GET:	/api/reservations/all	Récupérer toutes les reservations
-POST:	/api/events/{eventId}/reservation	Création d'une reservation
+- GET:	/api/reservations/all	Récupérer toutes les reservations
+- POST:	/api/events/{eventId}/reservation	Création d'une reservation
 {
     "amount": 50.00
 }
-PUT:	/api/reservations/{reservationId}	Modification d'une reservation
-DELETE:	/api/reservations/{reservationId}	Suppression d'une reservation
-GET:	/api/reservations/{reservationId}	Récupérer une reservation en particulier
+- PUT:	/api/reservations/{reservationId}	Modification d'une reservation
+- DELETE:	/api/reservations/{reservationId}	Suppression d'une reservation
+- GET:	/api/reservations/{reservationId}	Récupérer une reservation en particulier
 
-**📌Pour les winners(tirage)**
+- **📌Pour les winners(tirage)**
 
-GET:	/api/winners/all	Récupérer tous les gagnants
-POST:	/api/winners/{eventId}/tirage	Faire un tirage
-GET:	/api/winners/{eventId}	Récupérer tous les gagnants pour un event x
+- GET:	/api/winners/all	Récupérer tous les gagnants
+- POST:	/api/winners/{eventId}/tirage	Faire un tirage
+- GET:	/api/winners/{eventId}	Récupérer tous les gagnants pour un event x
 
 
 ## Contributing
